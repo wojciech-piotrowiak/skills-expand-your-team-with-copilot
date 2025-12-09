@@ -701,6 +701,11 @@ footer {
   justify-content: center;
 }
 
+#dark-mode-toggle:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
 #logout-button {
   padding: 3px 10px;
   background-color: rgba(255, 255, 255, 0.2);
