@@ -30,6 +30,9 @@
   --error-light: #ffebee;
   --info: #0c5460;
   --info-light: #d1ecf1;
+
+  /* Focus color */
+  --focus-outline: rgba(26, 35, 126, 0.6);
 }
 
 /* Dark mode color palette */
@@ -64,6 +67,9 @@ body.dark-mode {
   --error-light: #3a2020;
   --info: #29b6f6;
   --info-light: #1e2a30;
+
+  /* Focus color */
+  --focus-outline: rgba(180, 124, 255, 0.6);
 }
 
 * {
@@ -702,7 +708,7 @@ footer {
 }
 
 #dark-mode-toggle:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline: 2px solid var(--focus-outline);
   outline-offset: 2px;
 }
 

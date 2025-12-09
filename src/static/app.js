@@ -34,7 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!themeIcon) return;
     
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
+    
+    // Check saved preference, fallback to system preference
+    if (savedTheme === "dark" || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.body.classList.add("dark-mode");
       themeIcon.textContent = "☀️";
     } else {
