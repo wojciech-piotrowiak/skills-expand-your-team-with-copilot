@@ -552,6 +552,12 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("")}
         </ul>
       </div>
+      <div class="share-buttons">
+        <button class="share-button" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share this activity">
+          <span class="share-icon">🔗</span>
+          <span>Share</span>
+        </button>
+      </div>
       <div class="activity-card-actions">
         ${
           currentUser
@@ -586,6 +592,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
+
+    // Add click handler for share button
+    const shareButton = activityCard.querySelector(".share-button");
+    shareButton.addEventListener("click", (event) => {
+      handleShare(event);
+    });
 
     activitiesList.appendChild(activityCard);
   }
@@ -809,6 +821,44 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       messageDiv.classList.add("hidden");
     }, 5000);
+  }
+
+  // Handle share button click
+  async function handleShare(event) {
+    const button = event.currentTarget;
+    const activityName = button.dataset.activity;
+    const description = button.dataset.description;
+    const schedule = button.dataset.schedule;
+
+    const shareData = {
+      title: `${activityName} - Mergington High School`,
+      text: `Check out this activity: ${activityName}\n${description}\nSchedule: ${schedule}`,
+      url: window.location.href
+    };
+
+    // Try to use Web Share API if available (mobile devices and some browsers)
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        showMessage("Activity shared successfully!", "success");
+      } catch (error) {
+        // User cancelled or error occurred
+        if (error.name !== "AbortError") {
+          console.error("Error sharing:", error);
+          showMessage("Unable to share at this time.", "error");
+        }
+      }
+    } else {
+      // Fallback: Copy link to clipboard
+      try {
+        const shareText = `${shareData.title}\n\n${shareData.text}\n\n${shareData.url}`;
+        await navigator.clipboard.writeText(shareText);
+        showMessage("Activity details copied to clipboard!", "success");
+      } catch (error) {
+        console.error("Error copying to clipboard:", error);
+        showMessage("Unable to copy to clipboard. Please try again.", "error");
+      }
+    }
   }
 
   // Handle form submission
