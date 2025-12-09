@@ -30,6 +30,10 @@
   --error-light: #ffebee;
   --info: #0c5460;
   --info-light: #d1ecf1;
+
+  /* Share button colors */
+  --share-button-bg: #4267B2;
+  --share-button-hover: #365899;
 }
 
 * {
@@ -277,7 +281,7 @@ section h3 {
 }
 
 .share-button {
-  background-color: #4267B2;
+  background-color: var(--share-button-bg);
   color: white;
   border: none;
   padding: 6px 12px;
@@ -292,7 +296,7 @@ section h3 {
 }
 
 .share-button:hover {
-  background-color: #365899;
+  background-color: var(--share-button-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
